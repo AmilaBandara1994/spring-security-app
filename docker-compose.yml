@@ -1,0 +1,31 @@
+services:
+  postgres:
+    container_name: postgres-sql-ssa
+    image: postgres
+    environment:
+      POSTGRES_USER: amila
+      POSTGRES_PASSWORD: amila
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: spring_security_application
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - 5432:5432
+    networks:
+      - spring-security
+    restart: unless-stopped
+
+
+  mail-dev:
+    container_name: mail-dev-ssa
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+
+networks:
+  spring-security:
+    driver: bridge
+volumes:
+  postgres:
+    driver: local
