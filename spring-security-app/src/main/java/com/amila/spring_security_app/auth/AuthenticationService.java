@@ -123,6 +123,7 @@ public class AuthenticationService {
 
         var user =  userRepository.findById(savedToken.getUser().getId())
                 .orElseThrow(()-> new UsernameNotFoundException("User not found"));
+        user.setEnabled(true);
         userRepository.save(user);
         savedToken.setValidatedAt(LocalDateTime.now());
         tokenRepository.save(savedToken);
